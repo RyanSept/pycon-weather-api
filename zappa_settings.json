@@ -5,6 +5,7 @@
         "profile_name": "mine",
         "project_name": "weather-api",
         "runtime": "python3.6",
-        "s3_bucket": "weather-api-bucket"
+        "s3_bucket": "weather-api-bucket",
+        "cors": true
     }
 }
