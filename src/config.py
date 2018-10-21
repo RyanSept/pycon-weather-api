@@ -9,3 +9,4 @@ if 'SERVERTYPE' in os.environ and os.environ['SERVERTYPE'] == 'AWS Lambda':
         os.environ[key] = val
 
 WEATHER_API_KEY = os.environ.get('WEATHER_API_KEY')
+WEATHER_API_URL = os.environ.get("WEATHER_API_URL")
