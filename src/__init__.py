@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_restful import Api
+import boto3
 
 app = Flask(__name__)
 api = Api(app)
-
-from src import register_resources
+sns = boto3.client("sns", region_name="eu-west-1")
+dynamodb = boto3.resource(
+    "dynamodb", region_name="eu-west-2").Table("city-subscriptions")

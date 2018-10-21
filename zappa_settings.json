@@ -1,12 +1,19 @@
 {
     "dev": {
-        "app_function": "src.__init__.app",
+        "app_function": "app.app",
         "aws_region": "eu-west-2",
-        "profile_name": "mine",
+        "profile_name": "default",
         "project_name": "weather-api",
         "runtime": "python3.6",
         "s3_bucket": "weather-api-bucket",
         "remote_env": "s3://weather-api-bucket/env.json",
-        "cors": true
+        "environment_variables": {},
+        "cors": true,
+        "events": [
+            {
+                "function": "src.sms.batch_sms_weather",
+                "expression": "rate(1 hour)"
+            }
+        ]
     }
 }
