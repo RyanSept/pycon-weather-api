@@ -46,19 +46,24 @@ class Subscribe(Resource):
                             required=True, location="json")
         args = parser.parse_args()
 
-        topic = sns.create_topic(Name="hourly-weather-updates")
-        topic_arn = topic['TopicArn']
-        subscription_arn = sns.subscribe(TopicArn=topic_arn, Protocol="sms",
-                                         Endpoint=args["phone_number"])['SubscriptionArn']
+        try:
+            topic = sns.create_topic(Name="hourly-weather-updates")
+            topic_arn = topic['TopicArn']
+            subscription_arn = sns.subscribe(TopicArn=topic_arn, Protocol="sms",
+                                            Endpoint=args["phone_number"])['SubscriptionArn']
 
-        sns.set_subscription_attributes(
-            SubscriptionArn=subscription_arn,
-            AttributeName='FilterPolicy',
-            AttributeValue=json.dumps({"city": [args["city"]]})
-        )
-        dynamodb.put_item(Item={"city": args["city"]})
+            sns.set_subscription_attributes(
+                SubscriptionArn=subscription_arn,
+                AttributeName='FilterPolicy',
+                AttributeValue=json.dumps({"city": [args["city"]]})
+            )
+            dynamodb.put_item(Item={"city": args["city"]})
 
-        # send message as a test run
-        sns.publish(PhoneNumber=args["phone_number"],
-                    Message=f"You've successfully subscribed to weather updates for {args['city']}.")
-        return "Ok"
+            # send message as a test run
+            sns.publish(PhoneNumber=args["phone_number"],
+                        Message=f"You've successfully subscribed to weather updates for {args['city']}.")
+            return {"ok": True}
+        except Exception as e:
+            app.logger.error(str(e))
+            return {"ok": True, "message": "Something went horribly wrong."}
+
