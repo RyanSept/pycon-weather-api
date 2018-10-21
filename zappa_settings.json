@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "app_function": "src.__init__.app",
+        "aws_region": "eu-west-2",
+        "profile_name": "mine",
+        "project_name": "weather-api",
+        "runtime": "python3.6",
+        "s3_bucket": "weather-api-bucket"
+    }
+}
