@@ -65,5 +65,5 @@ class Subscribe(Resource):
             return {"ok": True}
         except Exception as e:
             app.logger.error(str(e))
-            return {"ok": True, "message": "Something went horribly wrong."}
+            return {"ok": False, "message": "Something went horribly wrong."}, 500
 

@@ -12,7 +12,17 @@
         "events": [
             {
                 "function": "src.sms.batch_sms_weather",
-                "expression": "rate(1 hour)"
+                "expression": "rate(1 hour)",
+                "lambda_handler": "batch-sms-weather"
+            }
+        ],
+        "extra_permissions": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "sns:*"
+                ],
+                "Resource": "*"
             }
         ]
     }

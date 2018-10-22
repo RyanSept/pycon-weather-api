@@ -1,5 +1,6 @@
 from src import dynamodb, sns
 from src.weather import fetch_weather, map_weather
+from zappa.async import task
 import logging
 
 logging.basicConfig(
@@ -26,7 +27,7 @@ def batch_sms_weather():
                                    MessageAttributes={
                                        "city": {"DataType": "String",
                                                 "StringValue": city["city"]}})
-            logging.info(sns_call)
+            logging.debug("SNS Response:", sns_call)
 
 
 def serialize_for_sms(weather):
@@ -39,5 +40,5 @@ def serialize_for_sms(weather):
     Description: {weather["weather"]["description"]}
     """
 
-
-batch_sms_weather()
+if __name__ == "__main__":
+    batch_sms_weather()
