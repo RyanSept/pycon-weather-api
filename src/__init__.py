@@ -6,6 +6,5 @@ import boto3
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
-sns = boto3.client("sns", region_name="eu-west-1")
 dynamodb = boto3.resource(
-    "dynamodb", region_name="eu-west-2").Table("city-subscriptions")
+    "dynamodb", region_name="eu-west-2").Table("weather-app-sms-subs")
